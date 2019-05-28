@@ -32,7 +32,8 @@ public class MainActivity extends AppCompatActivity {
 
         final RecyclerView progList = findViewById(R.id.programmingList);
         progList.setLayoutManager(new LinearLayoutManager(this));
-        progList.setAdapter(new progAdapter(abc));
+        mAdapter=new progAdapter(abc);
+        progList.setAdapter(mAdapter);
 
 
         RecyclerView.ItemDecoration divider=new DividerItemDecoration(this,DividerItemDecoration.VERTICAL);
@@ -44,15 +45,15 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public boolean onMove(RecyclerView recyclerView, RecyclerView.ViewHolder dragged, RecyclerView.ViewHolder target) {
 
-                
-                int position_dragged =dragged.getAdapterPosition();
+
+                int position_dragged = dragged.getAdapterPosition();
                 int position_target = target.getAdapterPosition();
                 List<String> data=Arrays.asList(abc);
 
-               // Collections.swap(data,position_dragged,position_target);
-               // new progAdapter(abc).notifyItemMoved(position_dragged,position_target);
+                Collections.swap(data,position_dragged,position_target);
+                mAdapter.notifyItemMoved(position_dragged,position_target);
 
-                if (position_dragged < position_target) {
+              /*  if (position_dragged < position_target) {
                     for (int i = position_dragged; i < position_target; i++) {
                         Collections.swap(data, i, i + 1);
                     }
@@ -61,10 +62,8 @@ public class MainActivity extends AppCompatActivity {
                         Collections.swap(data, i, i - 1);
                     }
                 }
-
-
-
-               progList.setAdapter(new progAdapter(abc));
+*/
+         // progList.setAdapter(new progAdapter(abc));
 
                 return false;
             }
@@ -74,7 +73,9 @@ public class MainActivity extends AppCompatActivity {
 
             }
         });
-    helper.attachToRecyclerView(progList);
+
+     //   progList.setAdapter(new progAdapter(abc));
+      helper.attachToRecyclerView(progList);
     }
 
 }
